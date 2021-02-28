@@ -1,0 +1,1 @@
+# mailpoet-ses-bounce-handler
