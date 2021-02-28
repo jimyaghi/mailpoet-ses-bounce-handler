@@ -9,44 +9,18 @@
  */
 namespace JY\BounceHandlerPlugin {
 
-
 	use Aws\Result;
 	use Aws\Sqs\Exception\SqsException;
 
 	class SQSNotificationQueueWorker extends SQSQueueWorker {
 
 
-		/**
-		 * @var string
-		 */
-		public string $queueUrl = '';
 
 		/**
 		 * @return string
 		 */
 		public function queueId(): string {
 			return get_option( 'jy_sqs_queue', 'EmailNotificationQueue' );
-		}
-
-		/**
-		 *
-		 * @return string
-		 * @throws SqsException
-		 */
-		public function queueUrl(): string {
-			if ( ! $this->queueUrl ) {
-				$QueueName = $this->queueId();
-
-				try {
-					$response       = $this->sqs->getClient()->getQueueUrl( compact( 'QueueName' ) );
-					$this->queueUrl = (string) $response->get( 'QueueUrl' );
-				} catch ( SqsException $exception ) {
-					$msg = "Could not find the Queue `{$this->queueId()}`. Got {$exception->getAwsErrorCode()} {$exception->getAwsErrorMessage()}.";
-					$this->out( $msg );
-				}
-			}
-
-			return $this->queueUrl;
 		}
 
 
@@ -57,7 +31,7 @@ namespace JY\BounceHandlerPlugin {
 		 */
 		public function ackMessage( $message ): Result {
 			// we will return true so as not to affect things in the test stage
-			return $this->sqs->getClient()->deleteMessage(
+			return $this->sqsClient->deleteMessage(
 				[
 					'QueueUrl'      => $this->queueUrl(), // REQUIRED
 					'ReceiptHandle' => $message['ReceiptHandle'], // REQUIRED
@@ -66,7 +40,7 @@ namespace JY\BounceHandlerPlugin {
 
 		public function nackMessage( $message, $visibilityTimeout = 0 ): Result {
 
-			return $this->sqs->getClient()->changeMessageVisibility(
+			return $this->sqsClient->changeMessageVisibility(
 				[
 					'VisibilityTimeout' => $visibilityTimeout,
 					'QueueUrl'          => $this->queueUrl(),
@@ -108,7 +82,7 @@ namespace JY\BounceHandlerPlugin {
 			while ( ++ $this->check_count ) {
 				$this->out( "Check #{$this->check_count} for messages on Queue {$this->queueId()}" );
 				try {
-					$result = $this->sqs->getClient()->receiveMessage(
+					$result = $this->sqsClient->receiveMessage(
 						[
 							'AttributeNames'        => [ 'SentTimestamp' ],
 							'MaxNumberOfMessages'   => 10,
