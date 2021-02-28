@@ -26,9 +26,9 @@ namespace JY\BounceHandlerPlugin {
 	class SNSMessageHandler {
 
 		/**
-		 * @var SNSMessageHandler
+		 * @var SNSMessageHandler|null
 		 */
-		private static SNSMessageHandler $instance;
+		private static ?SNSMessageHandler $instance = null;
 
 		/**
 		 * @var string
@@ -68,7 +68,7 @@ namespace JY\BounceHandlerPlugin {
 				echo( "\nGot Notification ID: {$notification_id}" );
 			}
 
-			switch ( $notification['Type'] ) {
+			switch ( $notification['Type'] ?? '') {
 
 				case 'SubscriptionConfirmation':
 					$this->confirm( $notification );
