@@ -35,14 +35,14 @@ namespace JY\BounceHandlerPlugin {
 		 */
 		public $sns_query_key;
 
-		private function __construct( ) {
+		private function __construct() {
 			$this->sns_query_key = get_option( 'jy_sns_key', uniqid() );
 		}
 
 		/**
 		 * @return SNSMessageHandler
 		 */
-		static function instance() {
+		public static function instance() {
 			if ( static::$instance === null ) {
 				static::$instance = new static();
 				static::$instance->run();
@@ -251,7 +251,7 @@ namespace JY\BounceHandlerPlugin {
 
 		private function run() {
 			add_action( 'wp_loaded', [ $this, 'route_query_call' ] );
-			add_action( 'admin_notices', [$this, 'show_notice'] );
+			add_action( 'admin_notices', [ $this, 'show_notice' ] );
 		}
 	}
 }

@@ -13,7 +13,6 @@ namespace JY\BounceHandlerPlugin {
 
 
 	use Aws\Retry\Configuration;
-	use Aws\Sqs\Exception\SqsException;
 	use Aws\Sqs\SqsClient;
 
 	/**
@@ -78,34 +77,7 @@ namespace JY\BounceHandlerPlugin {
 		}
 
 
-		/**
-		 * @return string
-		 */
-		public function notificationQ(): string {
-			return get_option( 'jy_sqs_queue', 'BounceNotifications' );
-		}
 
-
-		/**
-		 *
-		 * @return string
-		 * @throws SqsException
-		 */
-		public function getNotificationQueue(): string {
-			if ( ! $this->queueUrl ) {
-				$QueueName = $this->notificationQ();
-
-				try {
-					$response       = $this->getClient()->getQueueUrl( compact( 'QueueName' ) );
-					$this->queueUrl = (string) $response->get( 'QueueUrl' );
-				} catch ( SqsException $exception ) {
-					$msg = "Could not find the Queue `{$this->notificationQ()}`. Got {$exception->getAwsErrorCode()} {$exception->getAwsErrorMessage()}.";
-					error_log( $msg );
-				}
-			}
-
-			return $this->queueUrl;
-		}
 
 
 	}

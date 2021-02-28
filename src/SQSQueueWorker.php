@@ -33,6 +33,7 @@ namespace JY\BounceHandlerPlugin {
 
 		public function __construct( $queue_name ='' ) {
 			$this->queue_id = $queue_name;
+			$this->sqs      = SQSComponent::instance();
 		}
 
 
