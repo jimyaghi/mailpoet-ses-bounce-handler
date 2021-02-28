@@ -14,12 +14,12 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => 'c0ac5c975a50f46c949a08c0f918fd6e1ac300aa',
     'name' => 'jimyaghi/bouncehandler',
   ),
   'versions' => 
@@ -71,12 +71,12 @@ private static $installed = array (
     ),
     'jimyaghi/bouncehandler' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => 'c0ac5c975a50f46c949a08c0f918fd6e1ac300aa',
     ),
     'mtdowling/jmespath.php' => 
     array (

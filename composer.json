@@ -9,6 +9,11 @@
       "email": "jim@jimyaghi.com"
     }
   ],
+  "config": {
+    "preferred-install": "dist",
+    "apcu-autoloader": true,
+    "optimize-autoloader": true
+  },
   "require": {
     "ext-json": "*",
     "ext-simplexml": "*",

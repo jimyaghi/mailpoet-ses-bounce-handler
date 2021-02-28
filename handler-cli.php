@@ -17,6 +17,7 @@ namespace JY\BounceHandlerPlugin {
 	define( 'WP_DEBUG', true );
 	define( 'WP_DEBUG_DISPLAY', true );
 
+
 	if ( ! function_exists( 'locate_root' ) ) {
 		/**
 		 * @param null $dir
