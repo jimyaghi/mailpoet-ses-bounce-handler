@@ -37,7 +37,7 @@ namespace JY\BounceHandlerPlugin {
 			$found   = false;
 
 			do {
-				if ( file_exists( $dir . '/wp-config.php' ) ) {
+				if ( file_exists( $dir . '/wp-load.php' ) ) {
 					$found = true;
 				}
 			} while ( ! $found && 10 > $levels ++ && ( $dir = dirname( $dir ) ) );
@@ -52,6 +52,7 @@ namespace JY\BounceHandlerPlugin {
 	$docRoot = locate_root( ( $argv[1] ?? '' ) ? $argv[1] : __DIR__ );
 
 
+	require_once __DIR__ . '/vendor/autoload.php';
 	require_once $docRoot . '/wp-load.php';
 	$taskWorker = new SQSNotificationQueueWorker();
 	$taskWorker->work();
