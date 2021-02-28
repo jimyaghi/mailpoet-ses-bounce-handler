@@ -1,0 +1,24 @@
+{
+  "name": "jimyaghi/bouncehandler",
+  "description": "Provides integration between MailPoet and SES to handle bounces and complaints",
+  "license": "LGPL-2.1-only",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "Jim Yaghi",
+      "email": "jim@jimyaghi.com"
+    }
+  ],
+  "require": {
+    "ext-json": "*",
+    "ext-simplexml": "*",
+    "ext-imap": "*",
+    "aws/aws-sdk-php": "*",
+    "aws/aws-php-sns-message-validator": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "JY\\BounceHandlerPlugin\\": "src"
+    }
+  }
+}
